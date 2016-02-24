@@ -1,0 +1,34 @@
+﻿<Page
+    x:Class="UWPTestApp.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:UWPTestApp"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid x:Name="rootGrid" >
+            <TextBlock >Weather at <Run    Text="{Binding Place}"/></TextBlock>
+            <StackPanel >
+                <Image Source="{Binding IconUrl}" />
+                <StackPanel>
+                    <TextBlock Text="天候"/>
+                    <TextBlock TextAlignment="Right"        Text="{Binding Main}"/>
+                </StackPanel>
+                <StackPanel>
+                    <TextBlock Text="現在気温" />
+                    <TextBlock TextAlignment="Right"><Run        Text="{Binding Temp}"/>℃</TextBlock>
+                </StackPanel>
+                <StackPanel>
+                    <TextBlock Text="最低気温" />
+                    <TextBlock TextAlignment="Right"><Run        Text="{Binding TempMin}"/>℃</TextBlock>
+                </StackPanel>
+                <StackPanel>
+                    <TextBlock Text="最高気温" />
+                    <TextBlock TextAlignment="Right"><Run        Text="{Binding TempMax}"/>℃</TextBlock>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Page>

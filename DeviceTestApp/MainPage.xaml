@@ -1,0 +1,29 @@
+<!-- Copyright (c) Microsoft. All rights reserved. -->
+
+<Page
+    x:Class="PotentiometerSensor.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:PotentiometerSensor"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d" FontSize="27">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center" Margin="10,20">
+            <TextBlock Text="Temp : "/>
+            <TextBlock x:Name="textPlaceHolder" Text="N/A" TextAlignment="Center"/>
+            <TextBlock Text=" 'C"/>
+        </StackPanel>
+        <ProgressBar Grid.Row="1" x:Name="m_prog" Maximum="35" Height="30" Value="15"/>
+        <StackPanel Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBlock x:Name="m_StatusText" Text="Waiting for initialization" Margin="10,30" TextAlignment="Center" FontSize="16" />
+            <TextBlock x:Name="m_MessageText" Text="" TextAlignment="Center" FontSize="12" />
+        </StackPanel>
+    </Grid>
+</Page>

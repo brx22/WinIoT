@@ -1,0 +1,26 @@
+﻿<Page
+    x:Class="SocketTestApp.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:SocketTestApp"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Orientation="Vertical">
+            <TextBlock TextAlignment="Left" FontSize="30" Text="Temperature:"/>
+            <TextBlock x:Name="m_tbTemp" TextAlignment="Center" FontSize="40" Text="sample"/>
+            <Button Content="Receive Start!" Click="Button_Click"/>
+        </StackPanel>
+        <ProgressBar x:Name="m_prgTemp" Grid.Column="1" Maximum="40" Minimum="0" Height="40" Width="200" VerticalAlignment="Center" HorizontalAlignment="Right" RenderTransformOrigin="0.5,0.5">
+            <ProgressBar.RenderTransform>
+                <RotateTransform Angle="-90"/>
+            </ProgressBar.RenderTransform>
+        </ProgressBar>
+    </Grid>
+</Page>
