@@ -1,4 +1,7 @@
-﻿using System;
+﻿using SocketTestApp.Manager;
+using SocketTestApp.Model;
+using SocketTestApp.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -18,90 +21,102 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-
+using SocketTestApp.Helper;
 
 namespace SocketTestApp
 {
-    public sealed partial class MainPage : Page
-    {
-        public MainPage()
-        {
-            this.InitializeComponent();
-            this.DataContext = this;
+	public sealed partial class MainPage : Page
+	{
+		#region コンストラクタ
 
-            InitClientConnection();
-        }
+		public MainPage()
+		{
+			try {
+				this.InitializeComponent();
 
-        private async void InitClientConnection()
-        {
-            try
-            {
-                clientSocket = new StreamSocket();
-                await clientSocket.ConnectAsync(localHost, port);
-                Debug.WriteLine("connected!");
+				foreach (MeterDataObj objData in DataManager.Instance.MeterDataObjList) {
+					this._MeterViewModels.Add(new MeterViewModel(objData));
+				}
 
+				NetworkManager.Instance.NotifyConnectionChanged += NetworkManager_NotifyConnectionChanged;
+				NetworkManager.Instance.NotifyMessageChanged += NetworkManager_NotifyMessageChanged;
 
+				this.DataContext = this;
 
-            }  catch (Exception exception)
-            {
-                // If this is an unknown status, 
-                // it means that the error is fatal and retry will likely fail.
-                if (SocketError.GetStatus(exception.HResult) == SocketErrorStatus.Unknown)
-                {
-                    throw;
-                }
+			} catch (Exception ex) {
 
-                //StatusText.Text = "Connect failed with error: " + exception.Message;
+			}
+		}
 
-                clientSocket.Dispose();
-                clientSocket = null;
-            }
-        }
+		#endregion //コンストラクタ
 
-        private async void RecvData()
-        {
-            if (_reader == null)
-            {
-                _reader = new DataReader(clientSocket.InputStream);
-                _reader.InputStreamOptions = InputStreamOptions.Partial;
-                await _reader.LoadAsync(sizeof(uint));
-            }
-            
+		#region プロパティ
 
-            ReadBuffer();
-        }
+		public List<MeterViewModel> MeterViewModels
+		{
+			get
+			{
+				return this._MeterViewModels;
+			}
+		}
 
-        private async void ReadBuffer()
-        {
-            while (_reader.UnconsumedBufferLength > 0)
-            {
-                uint sizeFieldCount = await _reader.LoadAsync(sizeof(uint));
+		#endregion //プロパティ
 
-                uint size = _reader.ReadUInt32();
+		#region イベントハンドラー
 
-                uint sizeFieldCount2 = await _reader.LoadAsync(size);
+		private void ConnectBtn_Click(object sender, RoutedEventArgs e)
+		{
+			try {
+				if (NetworkManager.Instance.IsConnecting == true) {
+					NetworkManager.Instance.Disconnect();
 
-                var str = _reader.ReadString(sizeFieldCount2);
+				} else {
+					NetworkManager.Instance.Connect();
+				}
 
-                Debug.WriteLine("client receive {0}", str);
+			} catch (Exception ex) {
 
-                this.m_tbTemp.Text = str;
-                this.m_prgTemp.Value = Convert.ToDouble(str);
-            }
-        }
+			}
+		}
 
+		private void NetworkManager_NotifyConnectionChanged(object sender, EventArgs e)
+		{
+			try {
+				if (NetworkManager.Instance.IsConnecting == true) {
+					this.m_btnConnect.Content = "Disconnect";
 
-        StreamSocket clientSocket;
+				} else {
+					this.m_btnConnect.Content = "Connect";
 
-        HostName localHost = new HostName("192.168.0.7");
+				}
 
-        string port = "5000";
+			} catch (Exception ex) {
 
-        DataReader _reader;
+			}
+		}
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            this.RecvData();
-        }
-    }
+		private void NetworkManager_NotifyMessageChanged(object sender, StringEventArgs e)
+		{
+			try {
+				if (e != null) {
+					this.m_txtMessage.Text = e.Text;
+				}
+
+			} catch (Exception ex) {
+
+			}
+		}
+
+		#endregion //イベントハンドラー
+
+		#region メソッド
+
+		#endregion //メソッド
+
+		#region メンバー変数
+
+		private List<MeterViewModel> _MeterViewModels = new List<MeterViewModel>();
+
+		#endregion //メンバー変数
+	}
 }

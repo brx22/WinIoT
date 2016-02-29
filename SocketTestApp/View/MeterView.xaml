@@ -1,0 +1,25 @@
+﻿<UserControl
+    x:Class="SocketTestApp.View.MeterView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:SocketTestApp.View">
+    <Grid Width="40" Margin="2,5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="200"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Text="{Binding ValueString}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <Canvas Grid.Row="1">
+            <ProgressBar  Value="{Binding MeterValue}" Maximum="40" Minimum="0" Height="40" Width="200" VerticalAlignment="Center" HorizontalAlignment="Right" 
+                     BorderBrush="{ThemeResource AppBarBorderThemeBrush}" BorderThickness="1" RenderTransformOrigin="0,0" Margin="0,200,0,0">
+                <ProgressBar.RenderTransform>
+                    <CompositeTransform Rotation="-90"/>
+                </ProgressBar.RenderTransform>
+            </ProgressBar>
+        </Canvas>
+        <Border Grid.Row="2" BorderThickness="1" CornerRadius="2" BorderBrush="Gray" Background="LightBlue">
+            <TextBlock Text="{Binding NoString}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        </Border>
+    </Grid>
+</UserControl>
