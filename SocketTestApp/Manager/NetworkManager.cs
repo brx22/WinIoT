@@ -21,6 +21,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using SocketTestApp.Helper;
+using SocketTestApp.Data;
 
 namespace SocketTestApp.Manager
 {
@@ -133,7 +134,7 @@ namespace SocketTestApp.Manager
 				this.ReadBuffer();
 
 			} catch (Exception ex) {
-				Debug.WriteLine("RecvData Failure : {0}", ex.ToString());
+				Debug.WriteLine(String.Format("RecvData Failure : {0}", ex.ToString()));
 
 			}
 		}
@@ -150,7 +151,7 @@ namespace SocketTestApp.Manager
 
 					var str = _reader.ReadString(sizeFieldCount2);
 
-					Debug.WriteLine("client receive {0}", str);
+					Debug.WriteLine(String.Format("client receive {0}", str));
 
 					List<String> lstData = new List<String>();
 					lstData.Add(str);
@@ -161,7 +162,7 @@ namespace SocketTestApp.Manager
 				}
 
 			} catch (Exception ex) {
-				Debug.WriteLine("ReadBuffer Failure : {0}", ex.ToString());
+				Debug.WriteLine(String.Format("ReadBuffer Failure : {0}", ex.ToString()));
 			}
 		}
 
@@ -178,9 +179,9 @@ namespace SocketTestApp.Manager
 
 		private StreamSocket _clientSocket;
 
-		private HostName _localHost = new HostName("192.168.0.9");
+		private HostName _localHost = new HostName(DataDef.IP_DEFAULT);
 
-		private string _port = "5000";
+		private string _port = DataDef.PORT_DEFAULT;
 
 		private DataReader _reader;
 

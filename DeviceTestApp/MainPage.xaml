@@ -17,7 +17,7 @@
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center" Margin="10,20">
             <TextBlock Text="Temp : "/>
-            <TextBlock x:Name="textPlaceHolder" Text="N/A" TextAlignment="Center"/>
+            <TextBlock x:Name="m_textPlaceHolder" Text="N/A" TextAlignment="Center"/>
             <TextBlock Text=" 'C"/>
         </StackPanel>
         <ProgressBar Grid.Row="1" x:Name="m_prog" Maximum="35" Height="30" Value="15"/>

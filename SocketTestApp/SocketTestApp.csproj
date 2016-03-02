@@ -98,6 +98,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Data\DataDef.cs" />
     <Compile Include="Helper\AppEventArgs.cs" />
     <Compile Include="Helper\NotificationBase.cs" />
     <Compile Include="MainPage.xaml.cs">

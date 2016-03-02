@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using SocketTestApp.Helper;
 using System.Diagnostics;
+using SocketTestApp.Data;
 
 namespace SocketTestApp.Manager
 {
@@ -16,10 +17,9 @@ namespace SocketTestApp.Manager
 		private DataManager()
 		{
 			try {
-				this._lstMeterDataObj.Add(new MeterDataObj() { No = 1 });
-				this._lstMeterDataObj.Add(new MeterDataObj() { No = 2 });
-				this._lstMeterDataObj.Add(new MeterDataObj() { No = 3 });
-				this._lstMeterDataObj.Add(new MeterDataObj() { No = 4 });
+				for (Int32 nNo = 1; nNo <= DataDef.METER_MAX; nNo++) {
+					this._lstMeterDataObj.Add(new MeterDataObj() { No = nNo });
+				}
 
 				NetworkManager.Instance.NotifyDataReceived += NetworkManager_NotifyDataReceived;
 
@@ -62,6 +62,7 @@ namespace SocketTestApp.Manager
 				Int32 nCount = this.MeterDataObjList.Count;
 				foreach (String strData in e.DataList) {
 					if (nCount > nIndex) {
+						Debug.WriteLine(String.Format("Received Data String : {0}", strData));
 						this.MeterDataObjList[nIndex].MeterValue = Convert.ToDouble(strData);
 						nIndex++;
 					} else {
@@ -70,7 +71,7 @@ namespace SocketTestApp.Manager
 				}
 
 			} catch (Exception ex) {
-				Debug.WriteLine("DataReceived Failure : {0}", ex.ToString());
+				Debug.WriteLine(String.Format("DataReceived Failure : {0}", ex.ToString()));
 			}
 		}
 
