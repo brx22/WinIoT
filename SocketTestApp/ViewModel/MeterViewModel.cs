@@ -22,20 +22,6 @@ namespace SocketTestApp.ViewModel
 			}
 		}
 
-		private void MeterViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
-		{
-			try {
-				if (e.PropertyName == "MeterValue") {
-					RaisePropertyChanged("MeterValue");
-					RaisePropertyChanged("ValueString");
-				}
-
-
-			} catch (Exception ex) {
-
-			}
-		}
-
 		#endregion //コンストラクタ
 
 		#region プロパティ
@@ -56,6 +42,23 @@ namespace SocketTestApp.ViewModel
 		}
 
 		#endregion //プロパティ
+
+		#region イベントハンドラー
+
+		private void MeterViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+		{
+			try {
+				if (e.PropertyName == "MeterValue") {
+					RaisePropertyChanged("MeterValue");
+					RaisePropertyChanged("ValueString");
+				}
+
+			} catch (Exception ex) {
+
+			}
+		}
+
+		#endregion //イベントハンドラー
 
 		#region メソッド
 

@@ -38,7 +38,6 @@ namespace PotentiometerSensor.Manager
 		public void InitDevice()
 		{
 			var gpio = GpioController.GetDefault();
-
 			if (gpio == null) {
 				throw new Exception("There is no GPIO controller on this device");
 			}

@@ -6,29 +6,30 @@
     xmlns:vm="using:SocketTestApp.ViewModel"
     xmlns:view="using:SocketTestApp.View" Height="Auto"
     >
-
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="50"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
-        <StackPanel Grid.Row="0" Orientation="Horizontal">
-            <Button x:Name="m_btnConnect" Content="Connect" Click="ConnectBtn_Click" Margin="5" Width="100"/>
-            <TextBlock x:Name="m_txtMessage" Text="Message" Margin="5" VerticalAlignment="Center"/>
-        </StackPanel>
-        <Grid Grid.Row="1">
-            <ItemsControl ItemsSource="{x:Bind MeterViewModels, Mode=OneWay}" HorizontalAlignment="Left" Margin="5">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate x:DataType="vm:MeterViewModel">
-                        <view:MeterView/>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <ItemsStackPanel Orientation="Horizontal"/>
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-            </ItemsControl>
+    <Viewbox>
+        <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Row="0" Orientation="Horizontal">
+                <Button x:Name="m_btnConnect" Content="Connect" Click="ConnectBtn_Click" Margin="5" Width="100"/>
+                <TextBlock x:Name="m_txtMessage" Text="Message" Margin="5" VerticalAlignment="Center"/>
+            </StackPanel>
+            <Grid Grid.Row="1">
+                <ItemsControl ItemsSource="{x:Bind MeterViewModels, Mode=OneWay}" HorizontalAlignment="Left" Margin="5">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate x:DataType="vm:MeterViewModel">
+                            <view:MeterView/>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <ItemsStackPanel Orientation="Horizontal"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>
+            </Grid>
         </Grid>
-    </Grid>
+    </Viewbox>
 </Page>

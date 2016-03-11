@@ -75,7 +75,7 @@ namespace PotentiometerSensor.Manager
 				return;
 			}
 			
-			_periodicTimer = new Timer(this.Timer_Tick, null, 0, 1000);
+			_periodicTimer = new Timer(this.Timer_Tick, null, 0, ADCManager.TIMER_PERIOD);
 
 			this.UpdateStatusMessage("Status: Running");
 		}
@@ -89,7 +89,7 @@ namespace PotentiometerSensor.Manager
 
 				string spiAqs = SpiDevice.GetDeviceSelector(SPI_CONTROLLER_NAME);
 				var deviceInfo = await DeviceInformation.FindAllAsync(spiAqs);
-				_SpiADC = await SpiDevice.FromIdAsync(deviceInfo[0].Id, settings);
+				this._SpiADC = await SpiDevice.FromIdAsync(deviceInfo[0].Id, settings);
 
 			} catch (Exception ex) {
 				throw new Exception("SPI Initialization Failed", ex);
@@ -100,6 +100,10 @@ namespace PotentiometerSensor.Manager
 
 		public void ReadADC()
 		{
+			if (this._SpiADC == null) {
+				return;
+			}
+
 			byte[] readBuffer = new byte[3];
 			byte[] writeBuffer = new byte[3] { 0x00, 0x00, 0x00 };
 
@@ -185,6 +189,8 @@ namespace PotentiometerSensor.Manager
 		private Int32 _adcValue;
 
 		private static ADCManager _Instance;
+
+		private const Int32 TIMER_PERIOD = 1000;
 
 		#endregion //メンバー変数
 
